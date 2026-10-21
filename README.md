@@ -1,3 +1,11 @@
+# FIUBA - Electrónica - Taller de Sistemas Embebidos
+## Trabajo Práctico N°: 4 - PWM
+### 2026-2doC - 1-03
+### Responsable de la entrega:
+| Padrón | Apellidos, Nombres | Fecha | Deadline |
+| :----- | :--------------------- | :------: | :-------: |
+| 113609 | Koo, Nicolás Uriel | 21/10/2026 | Semana 10 |
+
 # tdse-tp4-adc_pwm
 
 1) Usando lo aprendido en los tests de ADC y PWM, se pide implementar un firmware que module el brillo de un LED mediante la lectura de un potenciómetro.
