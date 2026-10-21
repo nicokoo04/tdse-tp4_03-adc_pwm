@@ -70,6 +70,7 @@ typedef struct {
     uint32_t WCET;			// Worst-case execution time (microseconds)
 } task_dta_t;
 
+
 /********************** internal data declaration ****************************/
 
 
@@ -84,6 +85,8 @@ const task_cfg_t task_cfg_list[]	= {
 
 /********************** internal functions declaration ***********************/
 
+
+
 /********************** internal data definition *****************************/
 
 
@@ -91,8 +94,8 @@ const char *p_sys	= " Bare Metal - Event-Triggered Systems (ETS)\n";
 const char *p_app	= " ADC + PWM\n";
 
 
-/********************** external data declaration *****************************/
 
+/********************** external data declaration *****************************/
 
 uint32_t g_app_cnt;
 uint32_t g_app_time_us;

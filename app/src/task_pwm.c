@@ -76,30 +76,27 @@ void task_pwm_init(void *parameters)
 	shared_data->pwm_active = 0;
 	/* Print out: Task Initialized */
 	LOGGER_LOG("  %s is running - %s\r\n", GET_NAME(task_pwm_init), p_task_pwm);
+
+    // Arrancamos el temporizador una única vez al inicio
+    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 }
 
 void task_pwm_update(void *parameters)
 {
-
-	static uint16_t period=PERIOD;
-	static int16_t step = STEP;
-
+	static uint16_t period = PERIOD;
 	shared_data_type *shared_data = (shared_data_type *) parameters;
 
-	if ( shared_data->adc_end_of_conversion ) {
+	// Si hay una nueva lectura del ADC disponible
+	if (shared_data->adc_end_of_conversion) {
 		shared_data->adc_end_of_conversion = false;
-		setPWM(htim3, TIM_CHANNEL_1, period, shared_data->pwm_active);
-		if ( step>0 ) {
-			if ( period-step<=shared_data->pwm_active ) {
-				step = step * -1;
-			}
-		}
-		else {
-			if ( abs(step)>=shared_data->pwm_active ) {
-				step = step * -1;
-			}
-		}
-		shared_data->pwm_active = shared_data->pwm_active + step;
+
+		// El ADC lee valores de 0 a 4095 (12 bits)
+		// El Timer usa un periodo de 0 a 65535 (16 bits)
+		// Escalamos el valor del ADC para que cubra todo el rango del PWM
+		shared_data->pwm_active = (uint16_t)(((uint32_t)shared_data->adc_value * period) / 4095);
+
+		// Actualizamos el PWM directamente en el registro de comparación
+        __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, shared_data->pwm_active);
 	}
 }
 
