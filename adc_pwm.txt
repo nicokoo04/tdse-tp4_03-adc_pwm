@@ -1,0 +1,2 @@
+Para que funcione el proyecto pusimos la orden de encendido (HAL_TIM_PWM_Start) en la función inicial. Esto hace que el mecanismo del PWM arranque una única vez al encender la placa y se quede funcionando de manera estable en segundo plano.
+Y para ajustar el brillo usamos (__HAL_TIM_SET_COMPARE) y no usamos la función setPWM porque este prendía y apagaba el timer todo el tiempo, lo que no permitía que funcione el proyecto.
